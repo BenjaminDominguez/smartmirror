@@ -1,0 +1,20 @@
+{
+  "name": "smartmirror",
+  "version": "1.0.0",
+  "description": "Smart mirror built with electron",
+  "main": "main.js",
+  "scripts": {
+    "test": "electron .",
+    "sass": "node-sass -w main.scss -o css/ --r -q"
+  },
+  "author": "Ben Dominguez",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^8.2.1"
+  },
+  "dependencies": {
+    "electron-reload": "^1.5.0",
+    "moment": "^2.24.0",
+    "node-sass": "^4.13.1"
+  }
+}

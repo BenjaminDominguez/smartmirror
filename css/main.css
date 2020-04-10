@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+.row {
+  display: flex;
+  flex-direction: row; }
+
+.column {
+  display: flex;
+  flex-direction: column; }
+
+.justify-content-start {
+  justify-content: flex-start; }
+
+.justify-content-center {
+  justify-content: center; }
+
+.justify-content-end {
+  justify-content: flex-end; }
+
+.justify-content-between {
+  justify-content: space-between; }
+
+.justify-content-around {
+  justify-content: space-around; }
+
+.m-b-1rem {
+  margin-bottom: 1rem; }
+
+.m-b-2rem {
+  margin-bottom: 2rem; }
+
+html {
+  font-family: 'Montserrat', sans-serif; }
+
+body {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 1rem 3rem 3rem 3rem; }
+
+.widget#date-time {
+  font-size: 2rem; }
+  .widget#date-time p {
+    margin: 0; }
+  .widget#date-time p#month-day-year {
+    margin-bottom: 15px; }
+  .widget#date-time p#hour-minute {
+    font-size: 4rem; }
+
+.widget#markets p {
+  margin-right: 10px;
+  font-weight: 400; }
+  .widget#markets p.green {
+    color: #82e0aa; }
+  .widget#markets p.red {
+    color: #e74c3c;
+    font-weight: 600; }
+
+.widget#weather p {
+  margin: 0;
+  font-size: 2rem; }
+
+.widget#weather #temp {
+  font-size: 4rem; }
+
+.widget#weather #weather-desc {
+  font-size: 1rem; }

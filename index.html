@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Mirror</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <script src="./node_modules/moment/min/moment.min.js"></script>
+</head>
+<body>
+    <div class="widgets">
+        <div class="row m-b-2rem">
+            <div class="widget row" id="markets">
+
+            </div>
+        </div>
+        <div class="row m-b-2rem">
+            <div class="widget column" id="date-time">
+                <p id="hour-minute">
+                </p>   
+                <p id="month-day-year">
+                </p> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="widget column" id="weather">
+                <img height="70px" width="70px" id="weather-icon" src="" alt="">
+                <p id="weather-desc"></p>
+                <p id="temp"></p>
+                <p>Miami</p>
+            </div>
+        </div>
+    </div>
+<script>
+
+const openWeatherAPIKey = '1b34ae82eae6d8fc76c9428316e16a10';
+
+fetch(`https://api.openweathermap.org/data/2.5/weather?q=Miami&appid=${openWeatherAPIKey}`)
+.then(res => res.json()).then(data => {
+    console.log(data)
+    document.getElementById('temp').innerHTML = `${((data.main.temp - 273)*9/5 + 32).toFixed(2)}&#176;`;
+    document.getElementById('weather-desc').innerHTML = `${data.weather[0].description}`
+    const icon = document.getElementById('weather-icon');
+    switch (data.weather[0].main) {
+        case 'Clouds':
+            icon.src = './svg/cloudy.svg';
+            return
+        case 'Rain':
+            icon.src = './svg/rain.svg';
+            return
+    }
+}).catch(err => console.log(err))
+
+
+const iexCloudBaseURL = 'https://cloud.iexapis.com';
+const iexCloudVersion = 'v1'
+const iexCloudSecretKey = 'sk_1c45048e1d2e4f57bee4dc84deaa0c2b'
+const iexPublishableKey = 'pk_83bcc572d0ba412b8017f62b88ec85e3';
+const tickers = ['SPY', 'DIA', 'GOOG', 'NFLX', 'AMZN', 'CCL'];
+
+function getSymbol(symbol) {
+    return fetch(`${iexCloudBaseURL}/${iexCloudVersion}/stock/${symbol}/intraday-prices?token=${iexPublishableKey}`,
+    {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then(res=> res.json()).then(data => {
+        let latestPrice = data.pop().high;
+        let openPrice = data[0].open;
+        if (!latestPrice) {
+            latestPrice = data.pop().high;
+        }
+        let change = latestPrice/openPrice - 1
+        change = (change*100).toFixed(2)
+        const positive = change > 0
+        return [latestPrice, change, positive]
+    })
+    .catch(err => console.log(err))
+} 
+
+const marketsRow = document.getElementById('markets');
+
+function getTickerTapeData() {
+    tickers.forEach(ticker => {
+        getSymbol(ticker)
+        .then((stockData)=> {
+            const [price, change, positive] = stockData;
+            if (positive) {
+                marketsRow.innerHTML += ` <p class="green">${ticker} ${price} (${change}%)</p>`
+            } else {
+                marketsRow.innerHTML += ` <p class="red">${ticker} ${price} (${change}%)</p>`
+            }
+        })
+    })
+}
+
+const oneSecond = 1000;
+const oneMinute = oneSecond*60;
+
+window.setInterval(() => {
+    document.getElementById('hour-minute').innerHTML = moment().format('h:mm a')
+    document.getElementById('month-day-year').innerHTML = moment().format('MMMM Do, YYYY')
+    }, oneSecond);
+
+window.setInterval(getTickerTapeData, oneMinute*15)
+
+getTickerTapeData();
+
+</script>
+</body>
+</html>

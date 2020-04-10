@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+$bg-color:  #212f3c;
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.justify-content {
+    &-start {
+        justify-content: flex-start;
+    }
+    &-center{
+        justify-content: center;
+    }
+    &-end{
+        justify-content: flex-end;
+    }
+    &-between{
+        justify-content: space-between;
+    }
+    &-around{
+        justify-content: space-around;
+    }
+}
+
+.m {
+    &-b {
+        &-1rem {
+            margin-bottom: 1rem;
+        }
+        &-2rem {
+            margin-bottom: 2rem;
+        }
+    }
+}
+
+html {
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: rgba(black, 0.90);
+    color: white;
+    padding: 1rem 3rem 3rem 3rem;
+}
+
+.widget {
+    &#date-time {
+        font-size: 2rem;
+        p {
+            margin: 0;
+        }
+        p#month-day-year {
+            margin-bottom: 15px;
+        }
+        p#hour-minute {
+            font-size: 4rem;
+        }
+    }
+    &#markets {
+        p {
+            margin-right: 10px;
+            font-weight: 400;
+            &.green {
+                color:  #82e0aa;
+            }
+            &.red {
+                color:  #e74c3c;
+                font-weight: 600;
+            }
+        }
+    }
+    &#weather {
+        p {
+            margin: 0;
+            font-size: 2rem;
+        }
+        #temp {
+            font-size: 4rem;
+        }
+        #weather-desc {
+            font-size: 1rem;
+        }
+    }
+}
