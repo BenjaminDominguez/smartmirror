@@ -56,7 +56,7 @@ const iexCloudBaseURL = 'https://cloud.iexapis.com';
 const iexCloudVersion = 'v1'
 const iexCloudSecretKey = 'sk_1c45048e1d2e4f57bee4dc84deaa0c2b'
 const iexPublishableKey = 'pk_83bcc572d0ba412b8017f62b88ec85e3';
-const tickers = ['SPY', 'DIA', 'GOOG', 'NFLX', 'AMZN', 'CCL'];
+const tickers = ['SPY', 'DIA', 'GOOG', 'NFLX', 'AMZN', 'CCL', 'AMD', 'AAPL', 'MSFT', 'DIS', 'TSLA', 'BABA'];
 
 function getSymbol(symbol) {
     return fetch(`${iexCloudBaseURL}/${iexCloudVersion}/stock/${symbol}/intraday-prices?token=${iexPublishableKey}`,
@@ -92,9 +92,19 @@ function getTickerTapeData() {
         .then((stockData)=> {
             const [price, change, positive] = stockData;
             if (positive) {
-                marketsRow.innerHTML += ` <p class="green">${ticker} ${price} (${change}%)</p>`
+                marketsRow.innerHTML += `
+                 <p class="green column">
+                     <span>${ticker}</span> 
+                     <span>${price}</span> 
+                     <span>(${change}%)</span>
+                 </p>`
             } else {
-                marketsRow.innerHTML += ` <p class="red">${ticker} ${price} (${change}%)</p>`
+                marketsRow.innerHTML += ` 
+                <p class="red column">
+                    <span>${ticker}</span> 
+                    <span>${price}</span>
+                    <span>(${change}%)</span>
+                </p>`
             }
         })
     })
