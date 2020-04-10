@@ -80,9 +80,13 @@ function getSymbol(symbol) {
     .catch(err => console.log(err))
 } 
 
-const marketsRow = document.getElementById('markets');
-
 function getTickerTapeData() {
+    const marketsRow = document.getElementById('markets');
+
+    marketsRow.innerHTML = ''
+
+    console.log(marketsRow)
+
     tickers.forEach(ticker => {
         getSymbol(ticker)
         .then((stockData)=> {
@@ -104,10 +108,8 @@ window.setInterval(() => {
     document.getElementById('month-day-year').innerHTML = moment().format('dddd, MMMM Do YYYY')
     }, oneSecond);
 
-window.setInterval(getTickerTapeData, oneMinute*15)
-
+window.setInterval(getTickerTapeData, oneMinute*60)
 getTickerTapeData();
-
 </script>
 </body>
 </html>

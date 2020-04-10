@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, globalShortcut } = require('electron');
 
 require('electron-reload')(__dirname);
 
@@ -17,4 +17,8 @@ function createWindow () {
     win.maximize();
 }
 
-app.whenReady().then(createWindow)
+app.whenReady().then(createWindow).then(() => {
+    globalShortcut.register('CommandOrControl+X', () => {
+        app.quit()
+    })
+})
